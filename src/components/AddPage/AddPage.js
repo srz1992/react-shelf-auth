@@ -2,13 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Nav from '../../components/Nav/Nav';
 import { addItemToShelf } from '../../redux/actions/shelfActions';
+import { fetchUser } from '../../redux/actions/userActions';
 
-const mapStateToProps = reduxState => ({
-    reduxState,
-});
 
+const mapStateToProps = state => ({
+    user: state
+  });
+  
 
 class AddPage extends Component {
+
+
+    componentDidMount() {
+        this.props.dispatch(fetchUser());
+      }
+    
 
     constructor(props) {
     super(props);
@@ -16,7 +24,7 @@ class AddPage extends Component {
         item: {
             description: '',
             image_url: '',
-            person_id: 0
+            person_id: this.props.user.id
         }
     }
 }
@@ -42,12 +50,12 @@ class AddPage extends Component {
             item: {
                 description: '',
                 image_url: '',
-                person_id: 0
             }
         })
     }
 
     render() {
+        console.log('user:', this.props.user );
         return (
             <div>
                 <h2>Add a new item!</h2>
@@ -57,7 +65,7 @@ class AddPage extends Component {
                             onChange={this.handleChange} placeholder="description"/>
                     <input type='text'
                             onChange={this.handleChange} placeholder="img URL"/>
-                    <input onclick={this.handleClick} type="submit"/>
+                    <input onClick={this.addNewItem} type="submit"/>
                 </form>
             </div>
         );
