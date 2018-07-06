@@ -22,7 +22,7 @@ import GridListTile from '@material-ui/core/GridListTile';
 import './UserPage.css'
 
 const mapStateToProps = state => ({
-  user: state.user,
+  user: state
 });
 
 class UserPage extends Component {
@@ -37,6 +37,7 @@ class UserPage extends Component {
   componentDidMount() {
     this.props.dispatch(fetchUser());
     this.getShelfItems();
+    
   }
 
   componentDidUpdate() {
@@ -80,8 +81,8 @@ class UserPage extends Component {
 
   render() {
     let content = null;
-
-    if (this.props.user.userName) {
+    console.log('user:', this.props.user );
+    if (this.props.user) {
       content = (
         <div>
           <h1
