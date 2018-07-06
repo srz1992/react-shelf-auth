@@ -14,7 +14,6 @@ class AddPage extends Component {
     super(props);
     this.state = {
         item: {
-            id: 0, 
             description: '',
             image_url: '',
             person_id: 0
@@ -41,7 +40,6 @@ class AddPage extends Component {
         this.props.dispatch({ type: 'ADD_ITEM', payload: this.state.item})
         this.setState({
             item: {
-                id: this.state.item.id + 1, 
                 description: '',
                 image_url: '',
                 person_id: 0
@@ -59,6 +57,7 @@ class AddPage extends Component {
                             onChange={this.handleChange} placeholder="description"/>
                     <input type='text'
                             onChange={this.handleChange} placeholder="img URL"/>
+                    <input onclick={this.handleClick} type="submit"/>
                 </form>
             </div>
         );
