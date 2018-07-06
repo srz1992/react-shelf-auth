@@ -39,6 +39,24 @@ router.post('/', (req, res) => {
  */
 router.delete('/:id', (req, res) => {
 
+    if(req.isAuthenticated()){
+        console.log('in delete request for /api/shelf id:', req.params.id);
+        id = req.params.id;
+        let queryText = `DELETE FROM item where id=$1`;
+        pool.query(queryText, [id])
+        .then((result)=>{
+            console.log('successfully deleted item');
+            res.sendStatus(200);
+        })
+        .catch((error)=>{
+            console.log('error deleting item:', error);
+            res.sendStatus(500);
+        })
+    }
+    else {
+        res.sendStatus(403);
+    }
+
 });
 
 

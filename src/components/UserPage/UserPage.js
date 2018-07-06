@@ -15,6 +15,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button'
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 
@@ -49,6 +50,17 @@ class UserPage extends Component {
     // this.props.history.push('home');
   }
 
+  deleteShelfItem = (id) =>{
+    console.log('deleteShelfItem, id:', id);
+    axios.delete(`/api/shelf/${id}`)
+    .then((response)=>{
+      this.getShelfItems();
+    }).catch((error)=>{
+      console.log('error deleting item! it`s bills fault somehow');
+    })
+
+  }  
+
   getShelfItems = () =>{
     console.log('getShelfItems');
     axios.get('/api/shelf')
@@ -77,11 +89,11 @@ class UserPage extends Component {
           >
             Welcome, { this.props.user.userName }!
           </h1>
-          <GridList padding={0} margin={0} className="gridList" cellHeight={160} cols={4}>
+          {/* <GridList padding={0} margin={0} className="gridList" cellHeight={160} cols={4}>
           {this.state.shelf.map((item)=> 
               <GridListTile key={item.id} cols={2}><img alt={item.description} src={item.image_url} /></GridListTile>
             )}
-          </GridList>
+          </GridList> */}
           <Paper>
             <h4>Here is what is on the shelf:</h4>
           
@@ -98,6 +110,7 @@ class UserPage extends Component {
             {this.state.shelf.map((item)=> <TableRow key={item.id}>
               <TableCell>{item.description}</TableCell>
               <TableCell><img alt={item.description} src={item.image_url} /></TableCell>
+              <TableCell><Button onClick={()=>this.deleteShelfItem(item.id)}>Delete</Button></TableCell>
             </TableRow>)}
             </TableBody>
           </Table>
