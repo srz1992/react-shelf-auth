@@ -38,6 +38,10 @@ const App = () => (
           path="/info"
           component={InfoPage}
         />
+        <Route
+          path="/add"
+          component={AddPage}
+        />
       </Switch>
     </Router>
   </div>

@@ -55,9 +55,9 @@ class AddPage extends Component {
                 <h2>Add a new item!</h2>
                 <pre>{JSON.stringify(this.state)}</pre>
                 <form onSubmit={this.addNewItem}>
-                    <input type='text' value={this.state.newItem.description} 
+                    <input type='text'
                             onChange={this.handleChange} placeholder="description"/>
-                    <input type='text' value={this.state.newitem.image_url} 
+                    <input type='text'
                             onChange={this.handleChange} placeholder="img URL"/>
                 </form>
             </div>
