@@ -29,29 +29,32 @@ class AddPage extends Component {
     }
 }
     
-    handleChange = (propName) => {
-        return event => {
-            console.log('event happeneded')
-            this.setState({
-                item:{
-                    ...this.state.item, 
-                    [propName]: event.target.value
-                }
-            })
+    handleChange = (event) => {
+        
+        console.log(this.state.item);
+        this.setState({
+            item:{
+                ...this.state.item, [event.target.name]: event.target.value
+            }
+        })
+        
         };
-    }
+    
 
     // get_shelf_users
     
     addNewItem = event => {
+        console.log('event:', event);
+        console.log('state:', this.state.item);
+        
+        this.props.dispatch(addItemToShelf(this.state.item));
         event.preventDefault();
-        this.props.dispatch({ type: 'ADD_ITEM', payload: this.state.item})
         this.setState({
             item: {
                 description: '',
-                image_url: '',
+                image_url: ''
             }
-        })
+        });
     }
 
     render() {
@@ -62,9 +65,9 @@ class AddPage extends Component {
                 <pre>{JSON.stringify(this.state)}</pre>
                 <form onSubmit={this.addNewItem}>
                     <input type='text'
-                            onChange={this.handleChange} placeholder="description"/>
+                            onChange={this.handleChange} name="description" placeholder="description"/>
                     <input type='text'
-                            onChange={this.handleChange} placeholder="img URL"/>
+                            onChange={this.handleChange} name="image_url" placeholder="img URL"/>
                     <input onClick={this.addNewItem} type="submit"/>
                 </form>
             </div>
